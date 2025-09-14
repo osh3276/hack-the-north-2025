@@ -14,7 +14,7 @@ interface Song {
 	title: string;
 	artist: string;
 	albumArt: string;
-	rating: number;
+	rating: number | string;
 	reviewCount: number;
 	genres: string[];
 	spotifyUrl?: string;
@@ -79,7 +79,6 @@ export default function App() {
 			</div>
 		);
 	}
-
 	if (currentPage === "genre" && selectedGenre) {
 		return (
 			<div className="min-h-screen bg-[#1A1A1A] dark">
@@ -105,7 +104,13 @@ export default function App() {
 			/>
 			<main className="relative">
 				<PopularSongs
-					onSongSelect={handleSongSelect}
+					onSongSelect={(songFromPopularSongs) => {
+						const songForHandler = {
+							...songFromPopularSongs,
+							id: Number(songFromPopularSongs.id), // Convert id from string to number
+						};
+						handleSongSelect(songForHandler);
+					}}
 					onGenreClick={handleGenreClick}
 				/>
 				<RecentReviews />
