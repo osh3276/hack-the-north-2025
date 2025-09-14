@@ -1,0 +1,2 @@
+# notes
+music critic platform
